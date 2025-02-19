@@ -1,3 +1,5 @@
+package Act01;
+
 public class NumerosThread extends Thread {
     @Override
     public void run() {
@@ -6,11 +8,11 @@ public class NumerosThread extends Thread {
 
     public void countDown () {
         for (int j = 1; j < 6; j++) {
-            long randomSpleep = Math.round((long) (Math.random()*2000));
+            long randomSleep = Math.round((long) (Math.random()*2000));
             try {
-                Thread.sleep(randomSpleep);
+                Thread.sleep(randomSleep);
             } catch (InterruptedException e) {
-                System.out.println("Error en el hilo:" +e);
+                System.out.println("Error en el hilo:" +e.getCause());
             }
             System.out.println(j);
         }

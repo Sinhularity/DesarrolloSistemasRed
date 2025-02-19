@@ -1,4 +1,7 @@
+package Act01;
+
 public class Main {
+
     public static void main(String[] args) {
 
         System.out.println("Iniciando hilos");
@@ -11,12 +14,10 @@ public class Main {
         letter.start();
 
         // System.out.println("Hilos finalizados"); -> Se ejecuta antes de que los hilos hayan terminado
-
-        NumerosThread num2 = new NumerosThread();
-        num2.start();
-        LetrasRunnable letter2 = new LetrasRunnable();
-        letter2.run(); // Utilizamos directamente el método run
-
-
+//
+//        Act01.NumerosThread num2 = new Act01.NumerosThread();
+//        num2.start();
+//        Act01.LetrasRunnable letter2 = new Act01.LetrasRunnable();
+//        letter2.run(); // Utilizamos directamente el método run
     }
 }
