@@ -17,9 +17,7 @@ public class TimerUser extends Thread {
                 System.out.println("Timer interrupted...");
                 break;
             }
-            synchronized (this) {
-                amountTime++;
-            }
+           amountTime++;
         }
     }
 

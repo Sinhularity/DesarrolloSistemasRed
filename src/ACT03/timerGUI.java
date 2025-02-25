@@ -6,12 +6,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class timerGUI {
-    private final JLabel mainTimerLabel = new JLabel("Contador",JLabel.CENTER);
+    private final JLabel mainTimerLabel = new JLabel("Contador");
 
     private final String [] buttonState = {"Iniciar","Pausar","Continuar"};
 
+
     private final JFrame frame = new JFrame();
-    private javax.swing.Timer uiUpdater;
+    GridBagConstraints gbc = new GridBagConstraints();
+    Timer uiUpdater;
 
     private JButton buttonTimerOne = new JButton(buttonState[0]);
     private JButton buttonTimerTwo = new JButton(buttonState[0]);
@@ -19,32 +21,39 @@ public class timerGUI {
     private final JLabel labelTimerOne = new JLabel("0", SwingConstants.CENTER);
     private final JLabel labelTimerTwo = new JLabel("0", SwingConstants.CENTER);
 
-
+    // In order to keep track of the timers and their respective buttons
     private final Map <JButton, TimerUser> buttonTimerUserMap = new HashMap<>();
 
     public timerGUI() {
+        // Main frame specifications
         frame.setSize(400,400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new GridLayout(3,2,10,10));
-
-        frame.add(mainTimerLabel);
-        frame.add(new JLabel(""));
+        frame.setLayout(new GridLayout(3,2));
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        frame.add(mainTimerLabel, gbc);
+        frame.add(new JLabel("")); // Otherwise the layout is not centered?
 
         buttonTimerUserMap.put(buttonTimerOne, new TimerUser());
         buttonTimerUserMap.put(buttonTimerTwo, new TimerUser());
 
-        uiUpdater = new javax.swing.Timer(500, e -> {
+        // UI Updater
+        uiUpdater = new Timer(1, e -> {
             updateTimerLabel(labelTimerOne, buttonTimerUserMap.get(buttonTimerOne));
             updateTimerLabel(labelTimerTwo, buttonTimerUserMap.get(buttonTimerTwo));
         });
         uiUpdater.start();
 
-        frame.add(labelTimerOne);
-        frame.add(buttonTimerOne);
+        // Centering the components
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        frame.add(buttonTimerOne, gbc);
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        frame.add(labelTimerOne, gbc);
         buttonTimerOne.addActionListener(e -> {
             updateButtonState(buttonTimerOne);
         });
-
 
         frame.add(buttonTimerTwo);
         frame.add(labelTimerTwo);
