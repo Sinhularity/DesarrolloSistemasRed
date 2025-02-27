@@ -31,6 +31,7 @@ public class timerGUI {
         frame.setLayout(new GridLayout(3,2));
         gbc.gridx = 0;
         gbc.gridy = 0;
+        mainTimerLabel.setFont(new Font("Times new roman", Font.BOLD, 30));
         frame.add(mainTimerLabel, gbc);
         frame.add(new JLabel("")); // Otherwise the layout is not centered?
 
