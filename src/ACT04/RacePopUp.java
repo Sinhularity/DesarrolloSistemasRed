@@ -14,6 +14,8 @@ public class RacePopUp extends JFrame {
     public RacePopUp(JButton iniciarCarreraButton) {
         setContentPane(contentPane);
         setTitle("Resultados");
+        setLocationRelativeTo(null);
+        setResizable(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         pack();
 

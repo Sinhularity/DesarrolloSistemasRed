@@ -12,12 +12,6 @@ public class Runner extends Thread {
     protected static final List<String> completionOrder = Collections.synchronizedList(new ArrayList<>());
     private JButton iniciarCarreraButton;
 
-    public Runner(JProgressBar progressBar,String name) {
-        this.progressBar = progressBar;
-        this.runnerProgress = 0;
-        this.name = name;
-    }
-
     public Runner(JProgressBar progressBar,String name,JButton iniciarCarreraButton) {
         this.progressBar = progressBar;
         this.runnerProgress = 0;

@@ -14,6 +14,8 @@ public class Race extends JFrame {
 
     public Race() {
         setContentPane(contentPane);
+        setLocationRelativeTo(null);
+        setResizable(false);
         setTitle("Carrera de Caballos");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
