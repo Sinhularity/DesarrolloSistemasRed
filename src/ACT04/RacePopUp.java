@@ -12,7 +12,7 @@ public class RacePopUp extends JFrame {
     private JPanel contentPane;
 
     public RacePopUp(JButton inciarCarreraButton) {
-        setContentPane(Resultados);
+        setContentPane(contentPane);
         setTitle("Resultados");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
