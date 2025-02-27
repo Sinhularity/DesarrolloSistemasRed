@@ -23,9 +23,9 @@ public class Race extends JFrame {
         thirdRunner.setStringPainted(true);
 
         iniciarCarreraButton.addActionListener(e -> {
+            iniciarCarreraButton.setEnabled(false);
             initRace();
             completionOrder.clear();
-            iniciarCarreraButton.setEnabled(false);
         });
     }
 
