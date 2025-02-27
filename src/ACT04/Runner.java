@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Runner extends Thread {
-    private JProgressBar progressBar;
+    private final JProgressBar progressBar;
     private int runnerProgress;
-    private String name;
+    private final String name;
     protected static final List<String> completionOrder = Collections.synchronizedList(new ArrayList<>());
-    private JButton iniciarCarreraButton;
+    private final JButton iniciarCarreraButton;
 
     public Runner(JProgressBar progressBar,String name,JButton iniciarCarreraButton) {
         this.progressBar = progressBar;
@@ -25,13 +25,14 @@ public class Runner extends Thread {
 
     @Override
     public void run() {
-       while (runnerProgress < 1000) {
+        int MAX_PROGRESS = 1000;
+        while (runnerProgress < MAX_PROGRESS) {
               runnerProgress += (int) (Math.random() * 25 + 10);
               progressBar.setValue(runnerProgress);
               try {
                 sleep(100);
               } catch (InterruptedException e) {
-                e.printStackTrace();
+                  System.out.println("Error on sleep");
               }
        }
         synchronized (completionOrder) {
