@@ -10,8 +10,7 @@ public class Runner extends Thread {
     private int runnerProgress;
     private String name;
     protected static final List<String> completionOrder = Collections.synchronizedList(new ArrayList<>());
-    private JButton JButton;
-
+    private JButton iniciarCarreraButton;
 
     public Runner(JProgressBar progressBar,String name) {
         this.progressBar = progressBar;
@@ -19,11 +18,11 @@ public class Runner extends Thread {
         this.name = name;
     }
 
-    public Runner(JProgressBar progressBar,String name,JButton JButton) {
+    public Runner(JProgressBar progressBar,String name,JButton iniciarCarreraButton) {
         this.progressBar = progressBar;
         this.runnerProgress = 0;
         this.name = name;
-        this.JButton = JButton;
+        this.iniciarCarreraButton = iniciarCarreraButton;
     }
 
     public void beginRace () {
@@ -46,7 +45,7 @@ public class Runner extends Thread {
             System.out.println(name + " ha terminado la carrera.");
 
             if (completionOrder.size() == 3) { // Solo mostrar cuando los 3 hayan terminado
-                RacePopUp racePopUp = new RacePopUp(JButton);
+                RacePopUp racePopUp = new RacePopUp(iniciarCarreraButton);
                 racePopUp.init();
             }
         }

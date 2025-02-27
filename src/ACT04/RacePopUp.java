@@ -11,7 +11,7 @@ public class RacePopUp extends JFrame {
     private JButton OKButton;
     private JPanel contentPane;
 
-    public RacePopUp(JButton inciarCarreraButton) {
+    public RacePopUp(JButton iniciarCarreraButton) {
         setContentPane(contentPane);
         setTitle("Resultados");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -22,7 +22,7 @@ public class RacePopUp extends JFrame {
         thirdPlace.setText(completionOrder.get(2));
 
         OKButton.addActionListener(e -> {
-            inciarCarreraButton.setEnabled(true);
+            iniciarCarreraButton.setEnabled(true);
             dispose();
         });
     }

@@ -12,7 +12,6 @@ public class Race extends JFrame {
     private JProgressBar thirdRunner;
     private JButton iniciarCarreraButton;
 
-
     public Race() {
         setContentPane(contentPane);
         setTitle("Carrera de Caballos");
@@ -36,7 +35,7 @@ public class Race extends JFrame {
 
     public void initRace() {
         new Runner(firstRunner,"Caballo 1",iniciarCarreraButton).beginRace();
-        new Runner(secondRunner,"Caballo 2").beginRace();
-        new Runner(thirdRunner,"Caballo 3").beginRace();
+        new Runner(secondRunner,"Caballo 2",iniciarCarreraButton).beginRace();
+        new Runner(thirdRunner,"Caballo 3",iniciarCarreraButton).beginRace();
     }
 }
