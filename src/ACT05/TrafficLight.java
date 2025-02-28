@@ -1,9 +1,7 @@
 package ACT05;
 
 import javax.swing.*;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class TrafficLight extends JFrame{
     private JLabel TLFiveS;
@@ -17,17 +15,17 @@ public class TrafficLight extends JFrame{
         setLocationRelativeTo(null);
         setResizable(false);
         pack();
-        tlStates.put(0,"Rojo");
-        tlStates.put(1,"Amarillo");
-        tlStates.put(2,"Verde");
+        tlStates.put(0,"ROJO");
+        tlStates.put(1,"VERDE");
+        tlStates.put(2,"AMARILLO");
 
         TLFiveS.setText(tlStates.get(0));
         TLSevenS.setText(tlStates.get(0));
     }
 
-    public void changeLight (int miliseconds,JLabel label) {
+    public void changeLight (int milliseconds,JLabel label) {
         try {
-            Thread.sleep(miliseconds);
+            Thread.sleep(milliseconds);
         } catch (InterruptedException e) {
             System.out.println("Error on sleep");
         }
