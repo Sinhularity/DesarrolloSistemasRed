@@ -14,14 +14,18 @@ public class Servidor extends Conexion{
             System.out.println("Server initialized...");
             // Create the connection from a client
 
-            DataInputStream serverInput = new DataInputStream(
+            serverInput = new DataInputStream(
                     new BufferedInputStream(clientSocket.getInputStream()));
 
-            while (!serverMessage.equals("exit")) {
+            serverOutput = new DataOutputStream(clientSocket.getOutputStream());
 
+            while (!serverMessage.equals("exit")) {
                 try {
                     serverMessage = serverInput.readUTF();
                     System.out.println("Client says: "+serverMessage);
+
+                    serverOutput.writeUTF("Message received");
+                    serverOutput.flush();
                 } catch (IOException e) {
                     System.out.println("There is a problem with input and output...");
                 }

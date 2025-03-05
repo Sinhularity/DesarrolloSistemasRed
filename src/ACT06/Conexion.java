@@ -1,5 +1,6 @@
 package ACT06;
 
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -15,6 +16,7 @@ public class Conexion {
     protected ServerSocket serverSocket;
     protected Socket clientSocket;
     protected DataOutputStream serverOutput, clientOutput;
+    protected DataInputStream serverInput, clientInput;
 
     public Conexion (String type) throws IOException {
         if (type.equalsIgnoreCase("server")) {
