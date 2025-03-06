@@ -10,8 +10,6 @@ public class Conexion {
     // Class to be used by Cliente and Servidor
     // Get the connection data
 
-    private final int PORT = 2099;
-    private final String HOST = "localhost";
     protected String serverMessage = "";
     protected ServerSocket serverSocket;
     protected Socket clientSocket;
@@ -19,6 +17,7 @@ public class Conexion {
     protected DataInputStream serverInput, clientInput;
 
     public Conexion (String type) throws IOException {
+        int PORT = 2099;
         if (type.equalsIgnoreCase("server")) {
             // Create a server socket in the port 2099
             serverSocket = new ServerSocket(PORT);
@@ -28,6 +27,7 @@ public class Conexion {
             clientSocket = serverSocket.accept();
         } else {
             // Create a socket to connect to the server
+            String HOST = "localhost";
             clientSocket = new Socket(HOST, PORT);
         }
     }

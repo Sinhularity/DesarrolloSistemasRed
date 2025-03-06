@@ -2,16 +2,16 @@ package ACT06;
 
 import java.io.*;
 
-public class Servidor extends Conexion{
+public class Servidor extends Conexion {
 
-    // To use the sockets and Conexion class attributes
+    // To use the sockets and Connexion class attributes
     public Servidor () throws IOException {
         super("server");
     }
 
     public void startServer () {
         try {
-            System.out.println("Server initialized...");
+            System.out.println("Server initialized...\nWaiting for client...");
             // Create the connection from a client
 
             serverInput = new DataInputStream(
