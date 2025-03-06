@@ -13,14 +13,15 @@ public class Conexion {
     protected String serverMessage = "";
     protected ServerSocket serverSocket;
     protected Socket clientSocket;
-    protected DataOutputStream serverOutput, clientOutput;
-    protected DataInputStream serverInput, clientInput;
+    protected DataOutputStream serverOutput;
+    protected DataInputStream serverInput;
 
     public Conexion (String type) throws IOException {
         int PORT = 2099;
         if (type.equalsIgnoreCase("server")) {
             // Create a server socket in the port 2099
             serverSocket = new ServerSocket(PORT);
+            System.out.println("Server connected to:");
             System.out.println(serverSocket.getLocalPort() + " "+
                     serverSocket.getLocalSocketAddress());
             // Wait for a client to connect
@@ -29,6 +30,9 @@ public class Conexion {
             // Create a socket to connect to the server
             String HOST = "localhost";
             clientSocket = new Socket(HOST, PORT);
+            System.out.println("Client connected to:");
+            System.out.println(clientSocket.getLocalPort() + " "+
+                    clientSocket.getLocalSocketAddress());
         }
     }
 
