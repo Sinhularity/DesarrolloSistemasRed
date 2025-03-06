@@ -1,0 +1,22 @@
+Crear SS
+
+ServerSocket ser = new ServerSocket(PORT);
+
+Crear Socket
+
+Socket soc = new Socket("localhost", PORT);
+
+Salida
+
+ObjectOutputStream out = new ObjectOutputStream(soc.getOutputStream());
+out.writeObject(new Object());
+
+Entrada
+
+ObjectInputStream in = new ObjectInputStream(soc.getInputStream());
+in.readObject();
+
+Cerramos
+
+ser.close();
+soc.close();
