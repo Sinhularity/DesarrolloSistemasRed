@@ -10,26 +10,29 @@ public class Cliente {
     public static void main(String[] args) {
         try {
 
-            Socket conexion = new Socket("localhost", 777);
+            Socket conexion = new Socket("148.226.203.189", 777);
             System.out.println("Conexión con el servidor establecida.");
 
-            ObjectInputStream entrada = new ObjectInputStream(conexion.getInputStream());
+//            ObjectInputStream entrada = new ObjectInputStream(conexion.getInputStream());
             ObjectOutputStream salida = new ObjectOutputStream(conexion.getOutputStream());
-            Scanner sc = new Scanner(System.in);
+//            Scanner sc = new Scanner(System.in);
 
-            while (true) {
-                try {
-                    System.out.println("Escribe un mensaje: ");
-                    salida.writeObject(sc.nextLine());
-                    salida.flush();
+            salida.writeObject("Hola desde el cliente...");
+            salida.flush();
 
-                    String msg = entrada.readObject().toString();
-                    System.out.println(msg);
-                } catch (Exception e) {
-                    conexion.close();
-                }
-            }
-
+//            while (true) {
+//                try {
+//                    System.out.println("Escribe un mensaje: ");
+//                    salida.writeObject(sc.nextLine());
+//                    salida.flush();
+//
+//                    String msg = entrada.readObject().toString();
+//                    System.out.println(msg);
+//                } catch (Exception e) {
+//                    conexion.close();
+//                }
+//            }
+//                conexion.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
