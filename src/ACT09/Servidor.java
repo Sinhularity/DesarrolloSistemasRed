@@ -84,13 +84,19 @@ public class Servidor extends JFrame{
 
     public void sendMessage () {
         String msg = Prompt.getText();
-        if (!msg.isEmpty()) {
-            for ()
+        int index = Puertos.getSelectedIndex();
+        if (!msg.isEmpty() && !conexiones.isEmpty()) {
+            conexiones.get(index).enviarMensaje(msg);
+            Prompt.setText("");
+            Mensajes.append("Servidor a : " + ListaPuertos.get(index) + "  dice " + msg + "\n");
+        } else {
+            Mensajes.append((msg.isEmpty()) ? "No se puede enviar un mensaje vacío\n" : "No hay clientes conectados\n");
         }
-
-
+        Prompt.setText("");
     }
 
-
+    public static void main(String [] args ) {
+        SwingUtilities.invokeLater(Servidor::new);
+    }
 
 }

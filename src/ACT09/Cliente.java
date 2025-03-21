@@ -14,7 +14,10 @@ public class Cliente extends JFrame{
     private JScrollPane JScrollMensajes;
     private JPanel MainFrame;
 
+
     private ManejadorSocket conexion;
+    private ObjectInputStream entrada;
+    private ObjectOutputStream salida;
 
     public String IPAleatoria () {
             Random random = new Random();
@@ -27,10 +30,10 @@ public class Cliente extends JFrame{
         initComponents();
 
         try {
-            Socket socket = new Socket(IPAleatoria(), 2099);
+            Socket socket = new Socket(IPAleatoria(), 777);
+            entrada = new ObjectInputStream(socket.getInputStream());
+            salida = new ObjectOutputStream(socket.getOutputStream());
 
-            ObjectInputStream entrada = new ObjectInputStream(socket.getInputStream());
-            ObjectOutputStream salida = new ObjectOutputStream(socket.getOutputStream());
 
             new Thread(conexion).start();
 
@@ -57,9 +60,15 @@ public class Cliente extends JFrame{
     }
 
     public void sendMenssage () {
-        if (!Mensaje.getText().isEmpty()) {
-            conexion.enviarMensaje(Mensaje.getText());
-            Mensaje.setText("");
+        try {
+            String msg = Mensaje.getText();
+            if (!msg.isEmpty()) {
+                salida.writeObject(msg);
+                salida.flush();
+                Mensaje.setText("");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
