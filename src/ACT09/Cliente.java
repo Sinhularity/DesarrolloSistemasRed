@@ -1,71 +1,86 @@
 package ACT09;
+import ACT09.ManejadorSocket;
 
 import javax.swing.*;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class Cliente extends JFrame{
-
-    private JTextField Mensaje;
+public class Cliente extends JFrame {
+    private Socket socket;
+    private JTextField Mensaje; // Prompt
     private JButton Enviar;
     private JTextArea Mensajes;
     private JScrollPane JScrollMensajes;
     private JPanel MainFrame;
-
-
     private ManejadorSocket conexion;
-    private ObjectInputStream entrada;
-    private ObjectOutputStream salida;
+    String ip;
 
-    public String IPAleatoria () {
-            Random random = new Random();
-            String ip = random.nextInt(256) + "." + random.nextInt(256) + "." +
-                    random.nextInt(256) + "." + random.nextInt(256);
-            return ip;
+    // Generamos una IP en una variable y la agregamos al cuerpo 127.0.0.x
+    public String IPAleatoria() {
+        Random random = new Random();
+        int hostPort = random.nextInt(256);
+        return "127.0.0." + hostPort;
     }
 
-    public Cliente () {
-        initComponents();
-
-        try {
-            Socket socket = new Socket(IPAleatoria(), 777);
-            entrada = new ObjectInputStream(socket.getInputStream());
-            salida = new ObjectOutputStream(socket.getOutputStream());
-
-
-            new Thread(conexion).start();
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-
-    public void initComponents() {
+    private void initComponents() {
         setContentPane(MainFrame);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
+        setTitle("Cliente");
 
+        // Área de mensajes
+        Mensajes.setColumns(20);
+        Mensajes.setRows(5);
+        Mensajes.setEditable(false);
         JScrollMensajes.setViewportView(Mensajes);
 
-        Enviar.addActionListener(e -> {
-            sendMenssage();
-        });
+        Enviar.addActionListener(e -> sendMessage());
 
         pack();
         setVisible(true);
     }
 
-    public void sendMenssage () {
+
+    //Constructor que inicia conexión con el server
+    public Cliente() {
+        initComponents();
+
         try {
-            String msg = Mensaje.getText();
+            ip = IPAleatoria();
+            socket = new Socket(ip, 777);
+            System.out.println("Conectado al servidor: " + socket.getInetAddress());
+
+            conexion = new ManejadorSocket(socket, Mensajes);
+            conexion.start();
+            sendIP();
+
+        } catch (Exception e) {
+            Mensajes.append("Error al conectar con el servidor.\n");
+            e.printStackTrace();
+        }
+    }
+
+    // Se envia como primer mensaje la dirección IP del cliente
+    private void sendIP () {
+        try {
+            conexion.enviarMensaje(ip);
+        } catch (Exception ex) {
+            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void sendMessage() {
+        try {
+            String msg = Mensaje.getText().trim();
             if (!msg.isEmpty()) {
-                salida.writeObject(msg);
-                salida.flush();
+                // Utiliza ManejadorSocket para enviar mensajes
+                conexion.enviarMensaje(ip+" dice "+msg);
                 Mensaje.setText("");
+            } else {
+                Mensajes.append("No se puede enviar un mensaje vacío.\n");
             }
         } catch (Exception ex) {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
@@ -73,6 +88,8 @@ public class Cliente extends JFrame{
     }
 
     public static void main(String[] args) {
-        new Cliente();
+        // Realiza la creación de la interfaz de forma segura (similar a al synchronized, pero sin bloquear la UI)
+        // Evita problemas de concurrencia y bloqueos en la interfaz gráfica
+        SwingUtilities.invokeLater(Cliente::new);
     }
 }

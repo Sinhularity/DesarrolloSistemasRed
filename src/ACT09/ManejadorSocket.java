@@ -8,13 +8,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTextArea;
 
+
 public class ManejadorSocket extends Thread{
 
     private Socket socket;
     private ObjectInputStream entrada;
     private ObjectOutputStream salida;
     private JTextArea jTextArea;
-
 
     public ManejadorSocket(Socket socket, JTextArea jTextArea){
         try {
@@ -23,13 +23,11 @@ public class ManejadorSocket extends Thread{
             salida.flush();
             entrada = new ObjectInputStream(socket.getInputStream());
             this.jTextArea = jTextArea;
-            System.out.println("Manejador Creado");
         } catch (IOException ex) {
             Logger.getLogger(ManejadorSocket.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
-
 
     public void run(){
         while(true){
@@ -41,7 +39,6 @@ public class ManejadorSocket extends Thread{
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(ManejadorSocket.class.getName()).log(Level.SEVERE, null, ex);
             }
-
         }
     }
 
