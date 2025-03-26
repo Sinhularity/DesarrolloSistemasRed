@@ -34,7 +34,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="423ff" class="javax.swing.JTextArea" binding="Mensajes">
+          <component id="423ff" class="javax.swing.JTextArea" binding="Resultados">
             <constraints/>
             <properties>
               <maximumSize width="100" height="100"/>

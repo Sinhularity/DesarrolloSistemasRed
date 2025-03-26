@@ -1,5 +1,4 @@
 package ACT09;
-import ACT09.ManejadorSocket;
 
 import javax.swing.*;
 import java.net.Socket;
@@ -11,7 +10,7 @@ public class Cliente extends JFrame {
     private Socket socket;
     private JTextField Mensaje; // Prompt
     private JButton Enviar;
-    private JTextArea Mensajes;
+    private JTextArea Resultados;
     private JScrollPane JScrollMensajes;
     private JPanel MainFrame;
     private ManejadorSocket conexion;
@@ -32,10 +31,10 @@ public class Cliente extends JFrame {
         setTitle("Cliente");
 
         // Área de mensajes
-        Mensajes.setColumns(20);
-        Mensajes.setRows(5);
-        Mensajes.setEditable(false);
-        JScrollMensajes.setViewportView(Mensajes);
+        Resultados.setColumns(20);
+        Resultados.setRows(5);
+        Resultados.setEditable(false);
+        JScrollMensajes.setViewportView(Resultados);
 
         Enviar.addActionListener(e -> sendMessage());
 
@@ -53,12 +52,12 @@ public class Cliente extends JFrame {
             socket = new Socket(ip, 777);
             System.out.println("Conectado al servidor: " + socket.getInetAddress());
 
-            conexion = new ManejadorSocket(socket, Mensajes);
+            conexion = new ManejadorSocket(socket, Resultados);
             conexion.start();
             sendIP();
 
         } catch (Exception e) {
-            Mensajes.append("Error al conectar con el servidor.\n");
+            Resultados.append("Error al conectar con el servidor.\n");
             e.printStackTrace();
         }
     }
@@ -80,7 +79,7 @@ public class Cliente extends JFrame {
                 conexion.enviarMensaje(ip+" dice "+msg);
                 Mensaje.setText("");
             } else {
-                Mensajes.append("No se puede enviar un mensaje vacío.\n");
+                Resultados.append("No se puede enviar un mensaje vacío.\n");
             }
         } catch (Exception ex) {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
