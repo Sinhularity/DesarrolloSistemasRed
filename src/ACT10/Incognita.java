@@ -2,6 +2,7 @@ package ACT10;
 
 public class Incognita {
     static String combination = "58921";
+    static String EvaluateString;
 
     public void setCombination(String combination) {
         Incognita.combination = combination;
@@ -32,12 +33,15 @@ public class Incognita {
     }
 
     public static String evaluate(String combination) {
-        if (combination.length() == 5) {
+        if (jackpot(combination)) {
+            EvaluateString = "Ganaste!";
+            return EvaluateString;
+        } else if (combination.length() == 5) {
             int coincidentNumbers = Incognita.coincidentNumbers(combination);
             int coincidentPositionNumbers = Incognita.coincidentPositionNumbers(combination);
-            return "Correctos: " + coincidentNumbers + ", Posiciones correctas: " + coincidentPositionNumbers + "\n";
+            EvaluateString = "Correctos: " + coincidentNumbers + ", Posiciones correctas: " + coincidentPositionNumbers;
         }
-        return "";
+        return EvaluateString == null ? combination : EvaluateString;
     }
 
     public static boolean jackpot(String combination) {

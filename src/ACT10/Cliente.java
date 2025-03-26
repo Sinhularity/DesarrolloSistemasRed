@@ -79,7 +79,7 @@ public class Cliente extends JFrame {
             }
         }
         System.out.println(combination);
-        return combination;
+        return "Combinación:"+combination;
     }
 
     public static void main(String[] args) {

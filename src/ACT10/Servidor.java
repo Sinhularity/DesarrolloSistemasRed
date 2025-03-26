@@ -52,12 +52,6 @@ public class Servidor extends JFrame{
         Mensajes.setEditable(false);
         MensajesScroll.setViewportView(Mensajes);
 
-        EnviarButton.addActionListener( e-> {
-                ManejadorSocket selected = Puertos.getSelectedValue();
-                selected.sendMessage("Ganaste!");
-            }
-        );
-
         // Aseguramos que se muestre la ventana
         pack();
         setVisible(true);

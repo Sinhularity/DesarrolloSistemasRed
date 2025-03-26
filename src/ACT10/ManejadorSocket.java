@@ -31,15 +31,22 @@ public class ManejadorSocket extends Thread{
 
     public void run(){
         while(true){
+            String message;
             try {
-                String combination = entrada.readObject().toString();
-                String result = Incognita.evaluate(combination);
-                jTextArea.append(socket.getInetAddress() + " " + result);
-
-                if (!result.isEmpty()) {
-                    sendMessage(result);
+                message = entrada.readObject().toString();
+                if (message.startsWith("Combinación:")) {
+                    String combination = message.substring(12);
+                    String result = Incognita.evaluate(combination);
+                    jTextArea.append(socket.getInetAddress()+" - "+result+"\n");
+                    if (!result.isEmpty()) {
+                        sendMessage("Resultado:" + result);
+                    }
+                } else if (message.startsWith("Resultado:")) {
+                    jTextArea.append(socket.getInetAddress()+" - "+message.substring(10)+"\n");
+                } else {
+                    jTextArea.append(socket.getInetAddress()+" - "+message+"\n");
+                    socket.close();
                 }
-
             } catch (IOException | ClassNotFoundException ex) {
                 Logger.getLogger(ManejadorSocket.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -50,8 +57,6 @@ public class ManejadorSocket extends Thread{
         try {
             salida.writeObject(combination);
             salida.flush();
-//            jTextArea.append(socket.getInetAddress() + " - Correctos: " + Incognita.coincidentNumbers(combination)  +
-//                    ", Posicion correcta: " + Incognita.coincidentPositionNumbers(combination) + "\n");
         } catch (IOException ex) {
             Logger.getLogger(ManejadorSocket.class.getName()).log(Level.SEVERE, null, ex);
         }
