@@ -52,21 +52,7 @@ public class ClienteGUI {
             if (!message.isEmpty()) {
                 try {
                     operaciones.sendMessageToServer(message);
-                    textArea.append("Mensaje enviado: " + message + "\n");
                     textField.setText("");
-
-                    new Thread(() -> {
-                        try {
-                            String response;
-                            do {
-                                response = operaciones.receiveMessageFromServer();
-                            } while (response == null);
-                            textArea.append("Servidor: " + response + "\n");
-                        } catch (Exception ex) {
-                            Logger.getLogger(ClienteGUI.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }).start();
-
                 } catch (RemoteException ex) {
                     Logger.getLogger(ClienteGUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -76,5 +62,16 @@ public class ClienteGUI {
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+        new Thread(() -> {
+            try {
+                String response;
+                do {
+                    response = operaciones.receiveMessageFromServer();
+                } while (response == null);
+                textArea.append("Servidor: " + response + "\n");
+            } catch (Exception ex) {
+                Logger.getLogger(ClienteGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }).start();
     }
 }
