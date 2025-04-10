@@ -1,6 +1,7 @@
 package ACT14.cliente;
 
 import ACT14.servidor.InterfacesRMI.Operaciones;
+import ACT14.servidor.ServidorGUI;
 
 import javax.swing.*;
 import java.rmi.NotBoundException;
@@ -63,14 +64,15 @@ public class ClienteGUI {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         new Thread(() -> {
-            try {
-                String response;
-                do {
-                    response = operaciones.receiveMessageFromServer();
-                } while (response == null);
-                textArea.append("Servidor: " + response + "\n");
-            } catch (Exception ex) {
-                Logger.getLogger(ClienteGUI.class.getName()).log(Level.SEVERE, null, ex);
+            while (true) {
+                try {
+                    String msg = operaciones.receiveMessageFromServer();
+                    if (msg != null) {
+                        textArea.append("Cliente: " + msg + "\n");
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(ServidorGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }).start();
     }
