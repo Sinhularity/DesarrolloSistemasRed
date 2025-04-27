@@ -6,12 +6,12 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public class ConcreteOperaciones extends UnicastRemoteObject implements Operaciones {
+public class OperacionConcreta extends UnicastRemoteObject implements Operaciones {
 
     private final ConcurrentLinkedQueue<String> fromClient = new ConcurrentLinkedQueue<>();
     private final ConcurrentLinkedQueue<String> fromServer = new ConcurrentLinkedQueue<>();
 
-    protected ConcreteOperaciones() throws RemoteException {
+    public OperacionConcreta() throws RemoteException {
     }
 
     // Servidor → Cliente

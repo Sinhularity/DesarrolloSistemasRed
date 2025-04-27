@@ -41,7 +41,7 @@ public class ServidorGUI {
         panel.add(scrollPane);
 
         try {
-            operaciones = new ConcreteOperaciones();
+            operaciones = new OperacionConcreta();
             registry = LocateRegistry.createRegistry(2079);
             registry.rebind("servicios", operaciones);
             System.out.println("Servidor RMI iniciado en el puerto 2079");
