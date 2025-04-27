@@ -8,6 +8,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class OperacionConcreta extends UnicastRemoteObject implements Operaciones {
 
+
     private final ConcurrentLinkedQueue<String> fromClient = new ConcurrentLinkedQueue<>();
     private final ConcurrentLinkedQueue<String> fromServer = new ConcurrentLinkedQueue<>();
 

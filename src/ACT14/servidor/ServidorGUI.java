@@ -54,7 +54,6 @@ public class ServidorGUI {
             if (!message.isEmpty()) {
                 try {
                     operaciones.sendMessageToClient(message);
-                    textArea.append("Mensaje enviado: " + message + "\n");
                     textField.setText("");
                 } catch (RemoteException ex) {
                     Logger.getLogger(ServidorGUI.class.getName()).log(Level.SEVERE, null, ex);
